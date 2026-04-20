@@ -1,24 +1,15 @@
-package com.example;
+HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
+    MinecraftClient mc = MinecraftClient.getInstance();
 
-import net.fabricmc.api.ModInitializer;
+    if (mc.player == null) return;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+    String text = "Laki Visual | FPS: " + mc.getCurrentFps();
 
-public class ExampleMod implements ModInitializer {
-	public static final String MOD_ID = "modid";
-
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-	@Override
-	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
-	}
-}
+    drawContext.drawTextWithShadow(
+            mc.textRenderer,
+            text,
+            10,
+            10,
+            0xFFFFFF
+    );
+});
